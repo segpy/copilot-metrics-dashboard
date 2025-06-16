@@ -16,24 +16,41 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
-import { Sliders, Square, SquareCheck } from "lucide-react";
-import { DropdownFilterItem } from "../dashboard-state";
+import { Sliders, Square, SquareCheck, Loader2 } from "lucide-react";
+import { DropdownFilterItem, useDashboard } from "../dashboard-state";
 
 interface DropdownFilterProps {
   name: string;
   onSelect: (name: string) => void;
+  onClose?: () => void; // Optional callback when dropdown closes
   allItems: DropdownFilterItem[];
 }
 
 export function DropdownFilter(props: DropdownFilterProps) {
-  const { name, onSelect, allItems } = props;
+  const { name, onSelect, onClose, allItems } = props;
+  const { isLoading } = useDashboard();
 
   return (
     <div className="flex items-center space-x-2">
-      <Popover>
+      <Popover
+        onOpenChange={(open) => {
+          // When dropdown closes, call onClose if provided
+          if (!open && onClose) {
+            onClose();
+          }
+        }}
+      >
         <PopoverTrigger asChild>
-          <Button variant={"outline"} className="space-x-2 font-normal">
-            <Sliders size={16} />
+          <Button
+            variant={"outline"}
+            className="space-x-2 font-normal"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <Loader2 size={16} className="animate-spin" />
+            ) : (
+              <Sliders size={16} />
+            )}
             <span> {name}</span>
             <Badge variant={"secondary"}>
               {allItems.filter((x) => x.isSelected).length}

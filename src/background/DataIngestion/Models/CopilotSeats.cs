@@ -75,13 +75,13 @@ public class CopilotSeats
     {
         if (!string.IsNullOrWhiteSpace(this.Organization))
         {
-            return $"{this.Date.ToString("yyyy-MM-d")}-ORG-{this.Organization}-{this.Page}";
+            return $"{this.Date.ToString("yyyy-MM-dd")}-ORG-{this.Organization}-{this.Page}";
         }
         else if (!string.IsNullOrWhiteSpace(this.Enterprise))
         {
-            return $"{this.Date.ToString("yyyy-MM-d")}-ENT-{this.Enterprise}-{this.Page}";
+            return $"{this.Date.ToString("yyyy-MM-dd")}-ENT-{this.Enterprise}-{this.Page}";
         }
-        return $"{this.Date.ToString("yyyy-MM-d")}-XXX-{this.Page}";
+        return $"{this.Date.ToString("yyyy-MM-dd")}-XXX-{this.Page}";
     }
 }
 

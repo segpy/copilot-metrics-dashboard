@@ -163,7 +163,7 @@ export const computeActiveUserAverage = (
   );
 
   const averageActiveUsers = activeUsersSum / filteredData.length;
-  return averageActiveUsers;
+  return averageActiveUsers > 0 ? averageActiveUsers : 0;
 };
 
 export const computeAdoptionRate = (seatsData: any) => {
@@ -196,8 +196,9 @@ export const computeCumulativeAcceptanceAverage = (
 
   const comulativeAcceptanceRate = totalAcceptanceRate / acceptanceAverages.length;
   const comulativeChatAcceptanceRate = totalChatAcceptanceRate / acceptanceChatAverages.length;
+  const result = (comulativeAcceptanceRate + comulativeChatAcceptanceRate) / 2;
 
-  return (comulativeAcceptanceRate + comulativeChatAcceptanceRate) / 2;
+  return result > 0 ? result : 0;
 };
 
 export interface LineSuggestionsAndAcceptancesData {

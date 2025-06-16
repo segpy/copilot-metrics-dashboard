@@ -11,17 +11,17 @@ export const Stats = () => {
       <StatsCard
         title="Total seats"
         description="Total assigned seats"
-        value={seatsData.total_seats.toString()}
+        value={seatsData.total_seats > 0 ? seatsData.total_seats.toString() : "0"}
       ></StatsCard>
       <StatsCard
         title="Active seats"
         description="Total active seats"
-        value={seatsData.total_active_seats.toString()}
+        value={seatsData.total_active_seats > 0 ? seatsData.total_active_seats.toString() : "0"}
       ></StatsCard>
       <StatsCard
         title="Inactive seats"
         description="Total inactive seats"
-        value={total_inactive_seats.toString()}
+        value={total_inactive_seats > 0 ? total_inactive_seats.toString() : "0"}
       ></StatsCard>
       <StatsCard
         title="Adoption rate"

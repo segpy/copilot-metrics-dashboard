@@ -16,8 +16,6 @@ param githubAPIScope string
 
 param useTestData bool = false
 
-param teamNames array = []
-
 param tags object = {}
 
 var shortName = take(toLower(replace(name, '-', '')), 5)
@@ -65,13 +63,6 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
   kind: 'linux'
 }
 
-var teamNameAppSettings = [
-  for (teamName, idx) in teamNames: {
-    name: 'GITHUB_METRICS__Teams__${idx}'
-    value: teamName
-  }
-]
-
 resource copilotDataFunction 'Microsoft.Web/sites@2023-12-01' = {
   name: functionAppName
   tags: union(tags, { 'azd-service-name': 'ingestion' })
@@ -83,7 +74,7 @@ resource copilotDataFunction 'Microsoft.Web/sites@2023-12-01' = {
     siteConfig: {
       alwaysOn: true
       linuxFxVersion: 'DOTNET-ISOLATED|8.0'
-      appSettings: union(teamNameAppSettings, [
+      appSettings: [
         {
           name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
           value: appInsights.properties.ConnectionString
@@ -128,7 +119,7 @@ resource copilotDataFunction 'Microsoft.Web/sites@2023-12-01' = {
           name: 'GITHUB_METRICS__UseTestData'
           value: '${useTestData}'
         }
-      ])
+      ]
     }
   }
 }

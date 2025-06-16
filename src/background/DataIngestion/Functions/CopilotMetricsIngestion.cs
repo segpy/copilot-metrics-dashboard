@@ -4,24 +4,27 @@ using Microsoft.Extensions.Options;
 using Microsoft.CopilotDashboard.DataIngestion.Models;
 using Microsoft.CopilotDashboard.DataIngestion.Services;
 
+
 namespace Microsoft.CopilotDashboard.DataIngestion.Functions;
 
 public class CopilotMetricsIngestion
 {
     private readonly ILogger _logger;
     private readonly GitHubCopilotMetricsClient _metricsClient;
+    private readonly GitHubCopilotSeatsClient _seatsClient;
     private readonly IOptions<GithubMetricsApiOptions> _options;
 
     public CopilotMetricsIngestion(
         ILogger<CopilotMetricsIngestion> logger,
         GitHubCopilotMetricsClient metricsClient,
+        GitHubCopilotSeatsClient seatsClient,
         IOptions<GithubMetricsApiOptions> options)
     {
         _logger = logger;
         _metricsClient = metricsClient;
+        _seatsClient = seatsClient;
         _options = options;
     }
-
 
     [Function("GitHubCopilotMetricsIngestion")]
     [CosmosDBOutput(databaseName: "platform-engineering", containerName: "metrics_history", Connection = "AZURE_COSMOSDB_ENDPOINT", CreateIfNotExists = true)]
@@ -32,18 +35,14 @@ public class CopilotMetricsIngestion
         var metrics = new List<Metrics>();
 
         metrics.AddRange(await ExtractMetrics());
-
-        var teams = _options.Value.Teams;
-        if (teams != null && teams.Any())
+       
+        var teams = await _seatsClient.GetAllTeamsAsync();
+        if (teams.Any())
         {
             foreach (var team in teams)
             {
                 metrics.AddRange(await ExtractMetrics(team));
             }
-        }
-        else
-        {
-            metrics.AddRange(await ExtractMetrics());
         }
 
         if (myTimer.ScheduleStatus is not null)
