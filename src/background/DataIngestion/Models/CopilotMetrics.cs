@@ -50,13 +50,13 @@ public class Metrics
     {
         if (!string.IsNullOrWhiteSpace(this.Organization))
         {
-            return $"{this.Date.ToString("yyyy-MM-d")}-ORG-{this.Organization}{(string.IsNullOrWhiteSpace(this.Team) ? "" : $"-{this.Team}")}";
+            return $"{this.Date.ToString("yyyy-MM-dd")}-ORG-{this.Organization}{(string.IsNullOrWhiteSpace(this.Team) ? "" : $"-{this.Team}")}";
         }
         else if (!string.IsNullOrWhiteSpace(this.Enterprise))
         {
-            return $"{this.Date.ToString("yyyy-MM-d")}-ENT-{this.Enterprise}{(string.IsNullOrWhiteSpace(this.Team) ? "" : $"-{this.Team}")}";
+            return $"{this.Date.ToString("yyyy-MM-dd")}-ENT-{this.Enterprise}{(string.IsNullOrWhiteSpace(this.Team) ? "" : $"-{this.Team}")}";
         }
-        return $"{this.Date.ToString("yyyy-MM-d")}-XXX";
+        return $"{this.Date.ToString("yyyy-MM-dd")}-XXX";
     }
 }
 

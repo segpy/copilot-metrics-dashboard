@@ -1,11 +1,17 @@
 # GitHub Copilot Metrics - Dashboard
 
-1. [Introduction](#introduction)
-    * [Dashboard](#dashboard)
-        * [Features](#features)
-        * [Getting Started Locally](#getting-started-locally)
-    * [Seats](#seats)
-2. [Deploy to Azure](#deploy-to-azure)
+- [GitHub Copilot Metrics - Dashboard](#github-copilot-metrics---dashboard)
+- [Introduction](#introduction)
+  - [Dashboard](#dashboard)
+    - [Features](#features)
+    - [Getting Started Locally](#getting-started-locally)
+      - [Environment Variables](#environment-variables)
+      - [Install \& Run](#install--run)
+  - [Seats](#seats)
+- [Deploy to Azure](#deploy-to-azure)
+      - [Prerequisites](#prerequisites)
+- [Contributing](#contributing)
+- [Trademarks](#trademarks)
 
 # Introduction
 
@@ -13,14 +19,14 @@ The GitHub Copilot Metrics Dashboard is a solution accelerator designed to visua
 
 ## Dashboard
 
-![GitHub Copilot Metrics - Dashboard](/docs/dashboard.jpeg "GitHub Copilot Metrics - Dashboard")
+![GitHub Copilot Metrics - Dashboard](/docs/dashboard_2025.png "GitHub Copilot Metrics - Dashboard")
 
 ### Features
 
 The dashboard showcases a range of features:
 
 **Filters:**
-Ability to filter metrics by date range, languages, code editors and visualise data by time frame (daily, weekly, monthly).
+Ability to filter metrics by date range, languages, code editors, teams and visualise data by time frame (daily, weekly, monthly).
 
 **Acceptance Average:** Percentage of suggestions accepted by users for given date range and group by time range (daily, weekly, monthly).
 
@@ -33,6 +39,8 @@ Ability to filter metrics by date range, languages, code editors and visualise d
 **Language:** Breakdown of languages which can be used to filter the data.
 
 **Code Editors:** Breakdown of code editors which can be used to filter the data.
+
+**Teams Filter:** Interactive filter available in the dashboard UI that allows you to analyze Copilot usage and adoption patterns by specific GitHub teams. This feature dynamically loads team data and provides team-level insights for more granular analysis of Copilot effectiveness across different organizational units.
 
 ### Getting Started Locally
 
@@ -57,7 +65,6 @@ You will be required to enter the following information in an **.env** file:
 - GitHub Organization name
 - GitHub Token
 - GitHub API Scope
-- Team Names (if you choose to use the new metrics API)
 ```
 
 You can use the **.env.example** file as a reference. GitHub API Scope defines the GITHUB_API_SCOPE environment variable and can be set to either "enterprise" or "organization". It is used to define at which level the GitHub APIs will gather data. If not specified, the default value is "organization".
@@ -116,12 +123,9 @@ You will be prompted to provide the following information:
 - GitHub Organization name
 - GitHub Token
 - GitHub API Scope
-- Team Names (if you choose to use the new metrics API)
 ```
 
 > More details here for the [GA Metrics API](https://github.blog/changelog/2024-10-30-github-copilot-metrics-api-ga-release-now-available/)
-
-> Team Names must be a valid JSON array, e.g. ``["team-1", "team-2]``
 
 GitHub API Scope defines the GITHUB_API_SCOPE environment variable and can be set to either "enterprise" or "organization". It is used to define at which level the GitHub APIs will gather data. If not specified, the default value is "organization".
 

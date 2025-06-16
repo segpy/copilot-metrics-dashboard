@@ -32,9 +32,6 @@ param githubAPIVersion string = '2022-11-28'
 @description('True to use Test Data instead of calling the real API')
 param useTestData bool
 
-@description('List of team names - works with the new Metrics API')
-param teamNames array
-
 param resourceGroupName string = ''
 
 var resourceToken = toLower(uniqueString(subscription().id, name, location))
@@ -60,7 +57,6 @@ module resources 'resources.bicep' = {
     githubOrganizationName: githubOrganizationName
     githubAPIVersion: githubAPIVersion
     githubAPIScope: githubAPIScope
-    teamNames: teamNames
     useTestData: useTestData
   }
 }
